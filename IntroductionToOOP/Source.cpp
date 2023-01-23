@@ -4,6 +4,9 @@ using std::cin;
 using std::cout;
 using std::endl;
 
+#define delimeter "\n-----------------------------------"
+
+
 // Класс - это тип данных;
 // Структура - это тип данных
 
@@ -46,13 +49,28 @@ public:
 		this->y = y;
 		cout << "Constructor:\t" << this << endl;
 	}
+	Point(const Point& other)
+	{
+		this->x = other.x;
+		this->y = other.y;
+		cout << "CopyConstructor:" << this << endl;
+	}
 	~Point()
 	{
 		cout << "Destructor:\t" << this << endl;
 	}
 
-	// Methods:
-	double distance(Point other)
+    //                   Operators:
+	Point operator=(const Point& other)
+	{
+		this->x = other.x;
+		this->y = other.y;
+		cout << "CopyAssignment:\t" << this << endl;
+		return *this;
+	}
+
+	//                    Methods:
+	double distance(const Point& other)const
 	{
 		double x_distance = this->x - other.x;
 		double y_distance = this->y - other.y;
@@ -62,11 +80,10 @@ public:
 	void print()const
 	{
 		cout << "X = " << x << "\tY = " << y << endl;
-
 	}
 };
 
-double distance(Point A, Point B)
+double distance(const Point& A, Point& B)
 {
 	double x_distance = A.get_x() - B.get_x();
 	double y_distance = A.get_y() - B.get_y();
@@ -76,8 +93,8 @@ double distance(Point A, Point B)
 
 //#define STRUCT_POINT
 //#define DISTANCE_CHECK
-
-
+//#define CONSTRUCTORS_CHECK_1
+//#define ASSIGNMENT_CHECK_2
 
 void main()
 {
@@ -85,7 +102,6 @@ void main()
 	//cout << "Hello OOP" << endl;
 #ifdef STRUCT_POINT
 
-#ifdef DISTANCE_CHECK
 	int a;     //объявление переменной типа 'а' типа 'int'
 	Point A;   //бъявленние переменной 'A' типа 'Point'
 	//           //Объявление объекта 'А' структуры 'Point'
@@ -98,8 +114,11 @@ void main()
 
 	Point* pA = &A;
 	cout << pA->x << "\t" << pA->y << endl;
-#endif //STRUCT_POINT
 
+
+#endif // DISTANCE_CHECK
+
+#ifdef DISTANCE_CHECK
 	Point A;
 	A.set_x(2);
 	A.set_y(3);
@@ -107,13 +126,19 @@ void main()
 	B.set_x(7);
 	B.set_y(8);
 	cout << A.get_x() << "\t" << A.get_y() << endl;
+	cout << delimeter << endl;
 	cout << "Расстояние от точки А до точки B: " << A.distance(B) << endl;
+	cout << delimeter << endl;
 	cout << "Расстояние между точками А и В: " << distance(A, B) << endl;
+	cout << delimeter << endl;
 	cout << "Расстояние между точками B и В: " << distance(B, B) << endl;
+	cout << delimeter << endl;
 	cout << "Расстояние между точками В и А: " << distance(B, A) << endl;
-}
-#endif // DISTANCE_CHECK
+	cout << delimeter << endl;
+#endif //STRUCT_POINT
 
+
+#ifdef CONSTRUCTORS_CHECK
 	Point A;
 	//cout << A.get_x() << "\t" << A.get_y() << endl;
 	A.print();
@@ -123,4 +148,25 @@ void main()
 
 	Point C = 4;
 	C.print();
+
+	Point D = C;
+	D.print();
+#endif // CONSTRUCTORS_CHECK
+
+#ifdef ASSIGNMENT_CHECK_1
+	//CopyAssignment
+	Point A(2, 3);
+	A.print();
+	Point B = A;   //CopyConstructor
+	B.print();
+	Point C;       //DefaultConstructor
+	C = B;         //Assignment operator
+	C.print();
+#endif // ASSIGNMENT_CHECK_1
+
+	int a, b, c;
+	a = b = c = 0;
+
+	Point A, B, C;
+	A = B = C = Point(2, 3);
 }
