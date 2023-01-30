@@ -84,7 +84,7 @@ public:
 		return old;
 	}
 
-	//                    Methods:
+		//                    Methods:
 	double distance(const Point& other)const
 	{
 		double x_distance = this->x - other.x;
@@ -113,6 +113,28 @@ Point operator+(const Point& left, const Point& right)
 	res.set_y(left.get_y() + right.get_y());
 	return res;
 }
+
+bool operator==(const Point& left, const Point& right)
+{
+	return left.get_x == right.get_x() && left.get_y() == right.get_y();
+}
+
+ bool operator!= (const Point& left, const Point& right)
+ {
+	 return left.get_x() != right.get_x() || left.get_y() != right.get_y();
+ }
+
+ std::ostream& operator<<(std::ostream& os, const Point&  obj)
+ {
+	 return os << "X = " << obj.get_x() << "\t Y = " << obj.get_y();
+ }
+ std::istream& operator>>(std::istream& is, Point& obj)
+ {
+	double x, y;
+	is >> x >> y;
+	obj (x, y);
+	return is;
+ }
 
 //#define STRUCT_POINT
 //#define DISTANCE_CHECK
@@ -212,4 +234,24 @@ void main()
 	cout << delimeter << endl;
 	C++;
 	C.print();
+
+	/* Точка А(2, 3);
+Пункт B(4, 5);
+cout << (A != B) << endl;*/
+
+	Point A(2, 3);
+	A.print();
+
+	/*A.set_x(12);
+ A.set_y(13);*/
+	A (22, 33);
+	//A.print();
+	cout << A << endl;
+
+	cout << "Введите координаты точки: ";
+
+	cin >> A;
+
+	cout << A << endl;
 }
+
