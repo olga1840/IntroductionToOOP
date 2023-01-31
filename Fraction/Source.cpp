@@ -148,15 +148,6 @@ Fraction operator+(Fraction left, Fraction right)
 	left.to_improper();
 	right.to_improper();
 
-	/*Fraction result;
-	(
-		left.get_numerator() * right.get_denominator(),
-		right.get_numerator() * left.get_denominator()
-	);
-	result.set_numerator(left.get_numerator() * right.get_denominator() + right.get_numerator() * left.get_denominator());
-	result.set_denominator(left.get_denominator() * right.get_denominator());
-	return result.to_proper();*/
-
 	return Fraction
 	(
 		left.get_numerator() * right.get_denominator() + right.get_numerator() * left.get_denominator(),
@@ -168,17 +159,6 @@ Fraction operator-(Fraction left, Fraction right)
 {
 	left.to_improper();
 	right.to_improper();
-
-	/*Fraction result;
-	(
-		left.get_numerator() * right.get_denominator(),
-		left.get_denominator() * right.get_denominator(),
-		right.get_numerator() * left.get_denominator(),
-		right.get_denominator() * left.get_denominator()
-	);
-	result.set_numerator(left.get_numerator() * right.get_denominator() - right.get_numerator() * left.get_denominator());
-	result.set_denominator(left.get_denominator() * right.get_denominator());
-	return result.to_proper();*/
 
 	return Fraction
 	(
@@ -234,11 +214,7 @@ Fraction operator-=(Fraction left, Fraction right)
 	return (left = result.to_proper());
 }
 
-Fraction operator++(Fraction left)
-{
-	left.to_proper();
-	return (++left);
-}
+
 //#define CONSTRUCTORS_CHECK
 
 void main()
