@@ -1,11 +1,11 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 
 class Fraction
 {
-	int integer;    //целая часть
-	int numerator; //числитель
-	int denominator; //знаменатель
+	int integer;    //С†РµР»Р°СЏ С‡Р°СЃС‚СЊ
+	int numerator; //С‡РёСЃР»РёС‚РµР»СЊ
+	int denominator; //Р·РЅР°РјРµРЅР°С‚РµР»СЊ
 
 public:
 	int get_integer()const
@@ -122,8 +122,8 @@ Fraction operator*(Fraction left, Fraction right)
 	result.set_denominator(left.get_denominator() * right.get_denominator());
 	return result;*/
 
-	//Явно вызываем конструктор и создаем временный безымянный объект, 
-	//который сразу же возвращается на место вызова
+	//РЇРІРЅРѕ РІС‹Р·С‹РІР°РµРј РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Рё СЃРѕР·РґР°РµРј РІСЂРµРјРµРЅРЅС‹Р№ Р±РµР·С‹РјСЏРЅРЅС‹Р№ РѕР±СЉРµРєС‚, 
+	//РєРѕС‚РѕСЂС‹Р№ СЃСЂР°Р·Сѓ Р¶Рµ РІРѕР·РІСЂР°С‰Р°РµС‚СЃСЏ РЅР° РјРµСЃС‚Рѕ РІС‹Р·РѕРІР°
 	return Fraction
 	(
 		left.get_numerator() * right.get_numerator(),
