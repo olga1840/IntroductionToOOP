@@ -383,6 +383,8 @@ bool operator<=(const Fraction& left, const Fraction& right)
 	return !(left > right);
 }
 
+//Comparison fixed
+
 //#define CONSTRUCTORS_CHECK
 
 void main()
