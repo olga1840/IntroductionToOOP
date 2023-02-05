@@ -1,5 +1,9 @@
 ﻿#include<iostream>
 using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
+
 
 class Fraction;
 Fraction operator*(Fraction left, Fraction right);
@@ -81,6 +85,7 @@ public:
 	}
 	            //Operators
 
+	
 	Fraction& operator=(const Fraction& other)
 	{
 		this->integer = other.integer;
@@ -383,6 +388,18 @@ bool operator<=(const Fraction& left, const Fraction& right)
 	return !(left > right);
 }
 
+std::ostream& operator<<(std::ostream& os, const Fraction& fraction)
+{
+	return os << "Целое число =" << fraction.get_integer() << "\t Числитель = " << fraction.get_numerator() << "\t Знаменатель = " << fraction.get_denominator();
+}
+std::istream& operator>>(std::istream& in, Fraction& fraction)
+{
+	int numerator, int denominator;
+	in >> numerator >> denominator;
+	Fraction(numerator, denominator);
+	return in;
+}
+
 //Comparison fixed
 
 //#define CONSTRUCTORS_CHECK
@@ -406,6 +423,21 @@ void main()
 	Fraction E = D;
 	E.print();
 #endif // CONSTRUCTORS_CHECK
+	
+	Fraction A(2, 3, 4);
+	cout << A << endl;
+
+	Fraction B;
+	
+	std::cout << "Введите целое число дроби: "; cin >> integer;
+		
+	std::cout << "Введите числитель дроби: "; cin >> numerator;
+
+	std::cout << "Введите знаменатель дроби: "; cin >> denominator;;
+
+	cout << B << endl;
+	
+
 
 
 #ifdef COMPARISON OPERATORS
@@ -489,8 +521,8 @@ void main()
 	cout << b << endl;
 #endif //HOME_WORK_1
 
-	Fraction A(2, 3, 4);
-	cout << A << endl;
+	/*Fraction A(2, 3, 4);
+	cout << A << endl;*/
 
 
 }
