@@ -1,4 +1,5 @@
-﻿#include<iostream>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
 using namespace std;
 using std::cin;
 using std::cout;
@@ -419,34 +420,35 @@ std::ostream& operator<<(std::ostream& os, const Fraction& fraction)
 }
 std::istream& operator>>(std::istream& in, Fraction& fraction)
 {
-	int integer, numerator, denominator;
-	in >> integer >> numerator >> denominator;
-	Fraction(integer, numerator, denominator);
+	//int integer, numerator, denominator;
+	//in >> integer >> numerator >> denominator;
+	//fraction(integer, numerator, denominator);
+	//return in;
+
+	int number[3] = {};
+	const int SIZE = 32;
+	char buffer[SIZE] = {};
+	char delimiters[] = "/ ()";
+
+	//is >> buffer;
+	in.getline(buffer, SIZE);
+
+	int n = 0;	//счетчик чисел в веденной строке
+	//https://legacy.cplusplus.com/reference/cstring/strtok/
+	for (char* pch = strtok(buffer, delimiters); pch; pch = strtok(NULL, delimiters))
+		number[n++] = atoi(pch);	//функция atoi(...) ASCII-string to integer преобразует строку в число, если строка является числом, т.е., содержит цифры.
+	//https://legacy.cplusplus.com/reference/cstdlib/atoi/
+
+	switch (n)
+	{
+	case 1:fraction.set_integer(number[0]); break;
+	case 2:
+		fraction.set_numerator(number[0]);
+		fraction.set_denominator(number[1]);
+		break;
+	case 3:fraction(number[0], number[1], number[2]);
+	}
 	return in;
-
-	//int number[3] = {};
-	//const int SIZE = 32;
-	//char buffer[SIZE] = {};
-	//char delimiters[] = "/ ()";
-
-	////is >> buffer;
-	//in.getline(buffer, SIZE);
-
-	//int n = 0;	//счетчик чисел в веденной строке
-	////https://legacy.cplusplus.com/reference/cstring/strtok/
-	//for (char* pch = strtok(buffer, delimiters); pch; pch = strtok(NULL, delimiters))
-	//	number[n++] = atoi(pch);	//функция atoi(...) ASCII-string to integer преобразует строку в число, если строка является числом, т.е., содержит цифры.
-	////https://legacy.cplusplus.com/reference/cstdlib/atoi/
-
-	//switch (n)
-	//{
-	//case 1:fraction.set_integer(number[0]); break;
-	//case 2:
-	//	fraction.set_numerator(number[0]);
-	//	fraction.set_denominator(number[1]);
-	//	break;
-	//case 3:fraction(number[0], number[1], number[2]);
-	//}
 }
 
 //Comparison fixed
