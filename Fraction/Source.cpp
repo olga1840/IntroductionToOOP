@@ -43,6 +43,8 @@ public:
 		if (denominator == 0) denominator = 1;
 		this->denominator = denominator;
 	}
+
+	//                 Constructors:
 	Fraction()
 	{
 		this->integer = 0;
@@ -50,7 +52,16 @@ public:
 		this->denominator = 1;
 		cout << "DefaultConstructor:\t " << this << endl;
 	}
-	Fraction(int integer)
+	Fraction(double decimal)
+	{
+		this->integer = decimal;
+		decimal -= integer;
+		this->denominator = 1e+9;
+		this->numerator = decimal * denominator;
+		reduce();
+		cout << "DConstructor:\t\t" << this << endl;
+	}
+	explicit Fraction(int integer)
 	{
 		this->integer = integer;
 		this->numerator = 0;
@@ -70,7 +81,7 @@ public:
 		this->integer = integer;
 		this->numerator = numerator;
 		this->set_denominator(denominator);
-		cout << "Constructor:\t " << this << endl;
+		cout << "Constructor:\t\t " << this << endl;
 	}
 	Fraction(const Fraction& other)
 	{
@@ -84,8 +95,13 @@ public:
 		cout << "Destructor:\t" << this << endl;
 	}
 	            //Operators
-
-	
+	Fraction& operator()(int integer, int numerator, int denominator)
+	{
+		set_integer(integer);
+		set_numerator(numerator);
+		set_denominator(denominator);
+		return *this;
+	}
 	Fraction& operator=(const Fraction& other)
 	{
 		this->integer = other.integer;
@@ -113,9 +129,13 @@ public:
 
 	//    Type-cast operators
 
-	operator int()const
+	explicit operator int()const
 	{
 		return Fraction(*this).to_proper().integer;
+	}
+	explicit operator double()const
+	{
+		return integer + (double)numerator / denominator;
 	}
 
 	  
@@ -178,17 +198,18 @@ public:
 		return old;
 	}
 		
-	void print()const
+	std::ostream& print(std::ostream& os)const
 	{
-		if (integer)cout << integer;
+		if (integer)os << integer;
 		if (numerator)
 		{
-			if (integer)cout << "(";
-			cout << numerator << "/" << denominator;
-			if (integer)cout << ")";
+			if (integer)os << "(";
+			os << numerator << "/" << denominator;
+			if (integer)os << ")";
 		}
-		else if (integer == 0)cout << 0;
-		cout << endl;
+		else if (integer == 0)os << 0;
+		//os << endl;
+		return os;
 	}
 };
 
@@ -254,6 +275,7 @@ Fraction operator-(Fraction left, Fraction right)
 //#define COMPARISON OPERATORS
 //#define TYPE_CONVERSIONS_BASICS
 //#define HOME_WORK_1
+#define HOME_WORK_2
 
 //bool operator==(const Fraction& left, const Fraction& right)
 //{
@@ -388,16 +410,43 @@ bool operator<=(const Fraction& left, const Fraction& right)
 	return !(left > right);
 }
 
+//////////////////////////////////////////////////////////////////
+
+
 std::ostream& operator<<(std::ostream& os, const Fraction& fraction)
 {
 	return os << "Целое число =" << fraction.get_integer() << "\t Числитель = " << fraction.get_numerator() << "\t Знаменатель = " << fraction.get_denominator();
 }
 std::istream& operator>>(std::istream& in, Fraction& fraction)
 {
-	int numerator, int denominator;
-	in >> numerator >> denominator;
-	Fraction(numerator, denominator);
+	int integer, numerator, denominator;
+	in >> integer >> numerator >> denominator;
+	Fraction(integer, numerator, denominator);
 	return in;
+
+	//int number[3] = {};
+	//const int SIZE = 32;
+	//char buffer[SIZE] = {};
+	//char delimiters[] = "/ ()";
+
+	////is >> buffer;
+	//in.getline(buffer, SIZE);
+
+	//int n = 0;	//счетчик чисел в веденной строке
+	////https://legacy.cplusplus.com/reference/cstring/strtok/
+	//for (char* pch = strtok(buffer, delimiters); pch; pch = strtok(NULL, delimiters))
+	//	number[n++] = atoi(pch);	//функция atoi(...) ASCII-string to integer преобразует строку в число, если строка является числом, т.е., содержит цифры.
+	////https://legacy.cplusplus.com/reference/cstdlib/atoi/
+
+	//switch (n)
+	//{
+	//case 1:fraction.set_integer(number[0]); break;
+	//case 2:
+	//	fraction.set_numerator(number[0]);
+	//	fraction.set_denominator(number[1]);
+	//	break;
+	//case 3:fraction(number[0], number[1], number[2]);
+	//}
 }
 
 //Comparison fixed
@@ -424,22 +473,9 @@ void main()
 	E.print();
 #endif // CONSTRUCTORS_CHECK
 	
-	Fraction A(2, 3, 4);
-	cout << A << endl;
-
-	Fraction B;
-	
-	std::cout << "Введите целое число дроби: "; cin >> integer;
+	/*Fraction A(2, 3, 4);
+	cout << A << endl;*/
 		
-	std::cout << "Введите числитель дроби: "; cin >> numerator;
-
-	std::cout << "Введите знаменатель дроби: "; cin >> denominator;;
-
-	cout << B << endl;
-	
-
-
-
 #ifdef COMPARISON OPERATORS
 	double a = 2;
 	double b = 3;
@@ -517,12 +553,14 @@ void main()
 
 #ifdef HOME_WORK_1
 	Fraction B(2, 3, 4);
-	double b = B;
+	double b = (double)B;
 	cout << b << endl;
 #endif //HOME_WORK_1
 
-	/*Fraction A(2, 3, 4);
-	cout << A << endl;*/
-
+#ifdef HOME_WORK_2
+	Fraction A;
+	cout << "Введите простую дробь: "; cin >> A;
+	cout << A << endl;
+#endif //HOME_WORK_2
 
 }
