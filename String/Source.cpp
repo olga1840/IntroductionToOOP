@@ -27,16 +27,15 @@ public:
 	{
 		cout << "DefConstructor:\t" << this << endl;
 	}
-	String(const char* str) :size(strlen(str) + 1), str(new char[size] {})
+	String(const char* str) :String(strlen(str) + 1)
 	{
 		for (int i = 0; i < size; i++)this->str[i] = str[i];
 		cout << "1ArgConstructor:" << this << endl;
 	}
-	String(const String& other) :size(other.size), str(new char[size] {})
+	String(const String& other) :String(other.str)
 	{
-		
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
-		cout << "CopyConstructor:\t" << endl;
+		cout << "CopyConstructor:" << this << endl;
 	}
 	String(String&& other)noexcept:size(other.size), str(other.str)
 	{
