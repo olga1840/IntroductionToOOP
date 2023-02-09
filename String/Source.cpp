@@ -23,31 +23,24 @@ public:
 	}
 
 	//				Constructors:
-	explicit String(int size = 80)
+	explicit String(int size = 80) :size(size), str(new char[size] {})
 	{
-		this->size = size;
-		this->str = new char[size] {};
 		cout << "DefConstructor:\t" << this << endl;
 	}
-	String(const char* str)
+	String(const char* str) :size(strlen(str) + 1), str(new char[size] {})
 	{
-		this->size = strlen(str) + 1; //функция strlen() возвращает размер строки в символах
-		this->str = new char[size] {};     //но в классе хранится размер строки с учетом терминирующего нуля
 		for (int i = 0; i < size; i++)this->str[i] = str[i];
 		cout << "1ArgConstructor:" << this << endl;
 	}
-	String(const String& other)
+	String(const String& other) :size(other.size), str(new char[size] {})
 	{
-		this->size = other.size;
-		this->str = new char[size] {};
-		for (int i = 0; i < size; i++)
-			this->str[i] = other.str[i];
+		
+		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyConstructor:\t" << endl;
 	}
-	String(String&& other)noexcept
+	String(String&& other)noexcept:size(other.size), str(other.str)
 	{
-		this->size = other.size;
-		this->str = other.str;       //Shallow copy
+		 //Shallow copy
 		other.size = 0;
 		other.str = nullptr;         // nullptr - указатель на ноль
 		cout << "MoveConstructor:" << this << endl;
@@ -114,7 +107,7 @@ String operator+(const String& left, const String& right)
 	//cat.get_str()[i + left.get_size() - 1] = right.get_str()[i];
 	return cat;
 }
-//#define BASE_CHECK
+#define BASE_CHECK
 
 std::ostream& operator<<(std::ostream& os, const String& obj)
 {
@@ -125,8 +118,8 @@ void main()
 {
 	setlocale(LC_ALL, "");
 #ifdef BASE_CHECK
-	/*String str1(5);
-str1.print();*/
+	String str(5);
+    str.print();
 
 	String str1 = "Hello"; //Helo - строковая константа
 	str1 = str1;
@@ -145,6 +138,7 @@ str1.print();*/
 	cout << str3 << endl;
 
 	String str4 = str3;  //copy constructor
+	str4.print();
 
 	/*str1 = str3;
 	cout << str1 << endl;*/
