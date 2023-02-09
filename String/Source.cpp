@@ -36,6 +36,22 @@ public:
 		for (int i = 0; i < size; i++)this->str[i] = str[i];
 		cout << "1ArgConstructor:" << this << endl;
 	}
+	String(const String& other)
+	{
+		this->size = other.size;
+		this->str = new char[size] {};
+		for (int i = 0; i < size; i++)
+			this->str[i] = other.str[i];
+		cout << "CopyConstructor:\t" << endl;
+	}
+	String(String&& other)noexcept
+	{
+		this->size = other.size;
+		this->str = other.str;       //Shallow copy
+		other.size = 0;
+		other.str = nullptr;         // nullptr - указатель на ноль
+		cout << "MoveConstructor:" << this << endl;
+	}
 	~String()
 	{
 		delete this->str;
@@ -54,6 +70,15 @@ public:
 		cout << "CopyAssignment:\t" << endl;
 		return *this;
 	}
+	String& operator=(String&& other)
+	{
+		this->size = other.size;
+		this->str = other.str;
+		other.size = 0;
+		other.str = nullptr;
+		cout << "MoveAssignment:\t" << this << endl;
+		return *this;
+	}
 	String& operator+=(const String& other)
 	{
 		return *this = *this + other;
@@ -68,14 +93,7 @@ public:
 		return str[i];
 	}
 
-	String(const String& other)
-	{
-		this->size = other.size;
-		this->str = new char[size] {};
-		for (int i = 0; i < size; i++)
-			this->str[i] = other.str[i];
-		cout << "CopyConstructor:\t" << endl;
-	}
+	
 
 
 	//				Methods:
@@ -96,7 +114,7 @@ String operator+(const String& left, const String& right)
 	//cat.get_str()[i + left.get_size() - 1] = right.get_str()[i];
 	return cat;
 }
-
+//#define BASE_CHECK
 
 std::ostream& operator<<(std::ostream& os, const String& obj)
 {
@@ -106,8 +124,9 @@ std::ostream& operator<<(std::ostream& os, const String& obj)
 void main()
 {
 	setlocale(LC_ALL, "");
+#ifdef BASE_CHECK
 	/*String str1(5);
-	str1.print();*/
+str1.print();*/
 
 	String str1 = "Hello"; //Helo - строковая константа
 	str1 = str1;
@@ -117,13 +136,18 @@ void main()
 	cout << str2 << endl;
 	cout << "\n__________________________" << endl;
 
-	str1 += str2;
-	cout << str1 << endl;
+	/*str1 += str2;
+	cout << str1 << endl;*/
 
-	/*String str3;
-	str3 = str1 + str2;
-	cout << str3 << endl;*/
+	//String str3 = str1 + str2;  //move constructor
+	String str3;	//Default constructor
+	str3 = str1 + str2;//Move assignment
+	cout << str3 << endl;
+
+	String str4 = str3;  //copy constructor
 
 	/*str1 = str3;
 	cout << str1 << endl;*/
+#endif // BASE_CHECK
+
 }
