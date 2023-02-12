@@ -1,11 +1,11 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 
 class Matrix
 {
-	int** M;   //матрица
-	int rows;   //количество строк
-	int cols;   //количество столбцов
+	int** M;   //РјР°С‚СЂРёС†Р°
+	int rows;   //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє
+	int cols;   //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚РѕР»Р±С†РѕРІ
 public:
 	int get_M(int rows, int cols)
 	{
@@ -20,13 +20,13 @@ public:
 	}
 
 	//Constructors
-	explicit Matrix()  //конструктор по умолчанию, выделяем память, инициализируем 0)
+	explicit Matrix()  //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ, РІС‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ, РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј 0)
 	{
 		this->rows = 0;
 		this->cols = 0;
 		cout << "DefConstructor:\t" << this << endl;
 	}
-	Matrix(const int rows, int cols) //конструктор с одним параметром
+	Matrix(const int rows, int cols) //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РѕРґРЅРёРј РїР°СЂР°РјРµС‚СЂРѕРј
 	{
 		this->rows = rows;
 		this->cols = 0;
@@ -40,19 +40,19 @@ public:
 		this->M = new int* [cols];
 		cout << "1ArgConstructor:\t" << this << endl;
 	}
-	Matrix(int m, int n) //конструктор с двумя параметрами
+	Matrix(int m, int n) //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РґРІСѓРјСЏ РїР°СЂР°РјРµС‚СЂР°РјРё
 	{
 		this->rows = rows;
 		this->cols = cols;
-		M = new int* [rows];                              //выделяем память для массива указателей, количество строк, количество указателей
-		for (int i = 0; i < rows; i++)this->M[i] = new int[cols];  //выделяем память для каждого указателя
+		M = new int* [rows];                              //РІС‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ РґР»СЏ РјР°СЃСЃРёРІР° СѓРєР°Р·Р°С‚РµР»РµР№, РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє, РєРѕР»РёС‡РµСЃС‚РІРѕ СѓРєР°Р·Р°С‚РµР»РµР№
+		for (int i = 0; i < rows; i++)this->M[i] = new int[cols];  //РІС‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ РґР»СЏ РєР°Р¶РґРѕРіРѕ СѓРєР°Р·Р°С‚РµР»СЏ
 
-		for (int i = 0; i < rows; i++)                     //заполняем массив нулями
+		for (int i = 0; i < rows; i++)                     //Р·Р°РїРѕР»РЅСЏРµРј РјР°СЃСЃРёРІ РЅСѓР»СЏРјРё
 			for (int j = 0; j < cols; j++)
 				M[i][j] = 0;
 		cout << "Constructor:\t\t " << this << endl;
 	}
-	Matrix(const Matrix& other) //конструктор копирования
+	Matrix(const Matrix& other) //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 	{
 		this->rows = other.rows;
 		this->cols = other.cols;
