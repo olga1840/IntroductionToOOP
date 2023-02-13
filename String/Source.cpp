@@ -92,8 +92,113 @@ public:
 	{
 		return str[i];
 	}
+		
 
-	
+
+	//				Methods:
+	void print()const
+	{
+		cout << "Size:\t" << size << endl;
+		cout << "Str:\t" << str << endl;
+	}
+};
+
+#include<iostream>
+using namespace std;
+
+class String;
+String operator+(const String& left, const String& right);
+
+class String
+{
+	int size;		//размер строки в байтах
+	char* str;		//адрес строки в динамической памяти
+public:
+	int get_size()const
+	{
+		return size;
+	}
+	const char* get_str()const
+	{
+		return str;
+	}
+	char* get_str()
+	{
+		return str;
+	}
+
+	//				Constructors:
+	explicit String(int size = 80)
+	{
+		this->size = size;
+		this->str = new char[size] {};
+		cout << "DefConstructor:\t" << this << endl;
+	}
+	String(const char* str)
+	{
+		this->size = strlen(str) + 1; //функция strlen() возвращает размер строки в символах
+		this->str = new char[size] {};     //но в классе хранится размер строки с учетом терминирующего нуля
+		for (int i = 0; i < size; i++)this->str[i] = str[i];
+		cout << "1ArgConstructor:" << this << endl;
+	}
+	String(const String& other)
+	{
+		this->size = other.size;
+		this->str = new char[size] {};
+		for (int i = 0; i < size; i++)
+			this->str[i] = other.str[i];
+		cout << "CopyConstructor:\t" << endl;
+	}
+	String(String&& other)noexcept
+	{
+		this->size = other.size;
+		this->str = other.str;       //Shallow copy
+		other.size = 0;
+		other.str = nullptr;         // nullptr - указатель на ноль
+		cout << "MoveConstructor:" << this << endl;
+	}
+	~String()
+	{
+		delete this->str;
+		cout << "Destructor:\t" << this << endl;
+	}
+
+	//              Operators
+	String& operator=(const String& other)
+	{
+		if (this == &other)return *this;
+		delete[] this->str;
+		this->size = other.size;
+		this->str = new char[size] {};
+		for (int i = 0; i < size; i++)
+			this->str[i] = other.str[i];
+		cout << "CopyAssignment:\t" << endl;
+		return *this;
+	}
+	String& operator=(String&& other)
+	{
+		this->size = other.size;
+		this->str = other.str;
+		other.size = 0;
+		other.str = nullptr;
+		cout << "MoveAssignment:\t" << this << endl;
+		return *this;
+	}
+	String& operator+=(const String& other)
+	{
+		return *this = *this + other;
+	}
+
+	char& operator[](int i)
+	{
+		return str[i];
+	}
+	const char& operator[](int i)const
+	{
+		return str[i];
+	}
+
+
 
 
 	//				Methods:
