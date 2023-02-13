@@ -12,7 +12,8 @@ Fraction operator*(Fraction left, Fraction right);
 Fraction operator/(const Fraction& left, const Fraction& right);
 Fraction operator+(Fraction left, Fraction right);
 Fraction operator-(Fraction left, Fraction right);
-
+std::ostream& operator<<(std::ostream& os, const Fraction& fraction);
+std::istream& operator>>(std::istream& in, Fraction& fraction);
 
 class Fraction
 {
