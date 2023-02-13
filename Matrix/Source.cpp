@@ -12,7 +12,7 @@ public:
 		if ((rows > 0) && (cols > 0))return M[rows][cols];
 		else return 0;
 	}
-	void setMij(int i, int j, int value)
+	void set_Mij(int i, int j, int value)
 	{
 		if ((i < 0) || (i >= rows))return;
 		if ((j < 0) || (j >= cols))return;
@@ -52,7 +52,7 @@ public:
 				M[i][j] = 0;
 		cout << "Constructor:\t\t " << this << endl;
 	}
-	Matrix(const Matrix& other) //конструктор копирования
+	Matrix(const Matrix& other)  //конструктор копирования
 	{
 		this->rows = other.rows;
 		this->cols = other.cols;
